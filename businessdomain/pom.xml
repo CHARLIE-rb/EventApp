@@ -20,9 +20,10 @@
         <module>UserService</module>
     </modules>
 
+
     <properties>
         <spring-cloud-dependencies.version>2024.0.1</spring-cloud-dependencies.version>
-        <!--        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>-->
+<!--        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>-->
         <!--        <org.lombo.version>1.18.30</org.lombo.version>-->
         <!--        <org.springdoc.version>2.3.0</org.springdoc.version>-->
         <org.springdoc.version>1.6.12</org.springdoc.version>
@@ -110,11 +111,11 @@
             <version>${jackson.databind.nullable.version}</version>
         </dependency>
         <!-- mapper beans -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.mapstruct</groupId>-->
-        <!--            <artifactId>mapstruct-jdk8</artifactId>-->
-        <!--            <version>${org.mapstruct.version}</version>-->
-        <!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.mapstruct</groupId>-->
+<!--            <artifactId>mapstruct-jdk8</artifactId>-->
+<!--            <version>${org.mapstruct.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
@@ -128,7 +129,7 @@
         </dependency>
 
 
-        <!--        Dependencias de testing-->
+<!--        Dependencias de testing-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -162,75 +163,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--                <version>${spring-boot.version}</version>-->
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <propertiesEncoding>ISO-8859-1</propertiesEncoding>
-                </configuration>
-                <version>3.3.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.21.0</version>
-                <configuration>
-                    <locales>es</locales>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.5.1</version>
                 <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.source}</target>
+                    <!-- generate mappers -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -242,60 +184,8 @@
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
                         </path>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>${lombok-mapstruct-binding.version}</version>
-                        </path>
                     </annotationProcessorPaths>
-                    <release>17</release>
                 </configuration>
-            </plugin>
-            <!--            OpenApi Generator Code-->
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>${openapi.generator.version}</version>
-                <executions>
-                    <execution>
-                        <id>spring-boot-api</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/config/api.yaml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <interfaceOnly>true</interfaceOnly>
-                                <modelPropertyNaming>camelCase</modelPropertyNaming>
-                                <openApiValidate>3.0</openApiValidate>
-                                <reactive>false</reactive>
-                                <serializableModel>true</serializableModel>
-                                <skipDefaultInterface>true</skipDefaultInterface>
-                                <additionalModelTypeAnnotations>
-                                    @lombok.Builder
-                                    @lombok.NoArgsConstructor
-                                    @lombok.AllArgsConstructor
-                                </additionalModelTypeAnnotations>
-                                <useJakartaEe>true</useJakartaEe>
-                                <skipDefaultInterface>true</skipDefaultInterface>
-                                <useResponseEntity>false</useResponseEntity>
-                                <useSpringBoot3>true</useSpringBoot3>
-                                <serializableModel>false</serializableModel>
-                                <delegatePattern>false</delegatePattern>
-                                <java8>false</java8>
-                                <descriminatorCaseSensitive>true</descriminatorCaseSensitive>
-                                <generatedConstructorWithRequiredArgs>true</generatedConstructorWithRequiredArgs>
-                            </configOptions>
-                            <modelPackage>com.romero.userservice.model</modelPackage>
-                            <apiPackage>com.romero.userservice.web</apiPackage>
-                            <modelNameSuffix>Dto</modelNameSuffix>
-                            <!--                            <generateApiDpcumentation>false</generateApiDpcumentation>-->
-                            <!--                            <GenerateModelDocumentation>false</GenerateModelDocumentation>-->
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <resources>
@@ -311,123 +201,7 @@
                 </includes>
             </resource>
         </resources>
+
     </build>
-
-<!--
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <propertiesEncoding>ISO-8859-1</propertiesEncoding>
-                </configuration>
-                <version>3.3.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.source}</target>
-                    &lt;!&ndash; generate mappers &ndash;&gt;
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-
-
-            &lt;!&ndash; 2. OPENAPI GENERATOR configurado en generate-sources ⮀ &ndash;&gt;
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.13.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-api-interfaces</id>
-                        <phase>generate-sources</phase>            &lt;!&ndash; ⮀ &ndash;&gt;
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                                                        <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
-                            <inputSpec>src/main/resources/api.yaml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <configOptions>
-                                <interfaceOnly>true</interfaceOnly>
-                                <useTags>true</useTags>
-                                <useJakartaEe>true</useJakartaEe>
-                            </configOptions>
-                            <apiPackage>com.eventapp.users.api</apiPackage>
-                            <modelPackage>com.eventapp.users.model</modelPackage>
-                            <output>${project.build.directory}/generated-sources/openapi</output>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-&lt;!&ndash;             3. AÑADE la carpeta generada al classpath ⮀&ndash;&gt;
-&lt;!&ndash;            <plugin>&ndash;&gt;
-&lt;!&ndash;                <groupId>org.codehaus.mojo</groupId>&ndash;&gt;
-&lt;!&ndash;                <artifactId>build-helper-maven-plugin</artifactId>&ndash;&gt;
-&lt;!&ndash;                <version>3.6.0</version>&ndash;&gt;
-&lt;!&ndash;                <executions>&ndash;&gt;
-&lt;!&ndash;                    <execution>&ndash;&gt;
-&lt;!&ndash;                        <id>add-openapi-sources</id>&ndash;&gt;
-&lt;!&ndash;                        <phase>generate-sources</phase>&ndash;&gt;
-&lt;!&ndash;                        <goals>&ndash;&gt;
-&lt;!&ndash;                            <goal>add-source</goal>&ndash;&gt;
-&lt;!&ndash;                        </goals>&ndash;&gt;
-&lt;!&ndash;                        <configuration>&ndash;&gt;
-&lt;!&ndash;                            <sources>&ndash;&gt;
-&lt;!&ndash;                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>&ndash;&gt;
-&lt;!&ndash;                            </sources>&ndash;&gt;
-&lt;!&ndash;                        </configuration>&ndash;&gt;
-&lt;!&ndash;                    </execution>&ndash;&gt;
-&lt;!&ndash;                </executions>&ndash;&gt;
-&lt;!&ndash;            </plugin>&ndash;&gt;&ndash;&gt;
-
-        </plugins>
-    </build>
--->
 
 </project>

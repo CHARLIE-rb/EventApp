@@ -18,7 +18,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserDto'
+                  $ref: '#/components/schemas/User'
   /users/{id}:
     get:
       tags:
@@ -36,10 +36,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: '#/components/schemas/User'
 components:
   schemas:
-    UserDto:
+    User:
       type: object
       properties:
         id:
