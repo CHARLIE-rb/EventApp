@@ -20,7 +20,6 @@
         <module>UserService</module>
     </modules>
 
-
     <properties>
         <spring-cloud-dependencies.version>2024.0.1</spring-cloud-dependencies.version>
         <!--        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>-->
@@ -252,42 +251,7 @@
                     <release>17</release>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>
-
-
-    <!--<build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.source}</target>
-                    &lt;!&ndash; generate mappers &ndash;&gt;
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-
-
-&lt;!&ndash;            OpenApi Generator Code&ndash;&gt;
+            <!--            OpenApi Generator Code-->
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -327,16 +291,93 @@
                             <modelPackage>com.romero.userservice.model</modelPackage>
                             <apiPackage>com.romero.userservice.web</apiPackage>
                             <modelNameSuffix>Dto</modelNameSuffix>
-&lt;!&ndash;                            <generateApiDpcumentation>false</generateApiDpcumentation>&ndash;&gt;
-&lt;!&ndash;                            <GenerateModelDocumentation>false</GenerateModelDocumentation>&ndash;&gt;
+                            <!--                            <generateApiDpcumentation>false</generateApiDpcumentation>-->
+                            <!--                            <GenerateModelDocumentation>false</GenerateModelDocumentation>-->
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
+                    <include>**/banner.txt</include>
+                    <include>**/darwinchannels.json</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+<!--
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <propertiesEncoding>ISO-8859-1</propertiesEncoding>
+                </configuration>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.source}</target>
+                    &lt;!&ndash; generate mappers &ndash;&gt;
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.13</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
 
 
+
+
             &lt;!&ndash; 2. OPENAPI GENERATOR configurado en generate-sources ⮀ &ndash;&gt;
-            &lt;!&ndash;<plugin>
+            <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>7.13.0</version>
@@ -364,42 +405,29 @@
                 </executions>
             </plugin>
 
-             3. AÑADE la carpeta generada al classpath ⮀
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.6.0</version>
-                <executions>
-                    <execution>
-                        <id>add-openapi-sources</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>&ndash;&gt;
+&lt;!&ndash;             3. AÑADE la carpeta generada al classpath ⮀&ndash;&gt;
+&lt;!&ndash;            <plugin>&ndash;&gt;
+&lt;!&ndash;                <groupId>org.codehaus.mojo</groupId>&ndash;&gt;
+&lt;!&ndash;                <artifactId>build-helper-maven-plugin</artifactId>&ndash;&gt;
+&lt;!&ndash;                <version>3.6.0</version>&ndash;&gt;
+&lt;!&ndash;                <executions>&ndash;&gt;
+&lt;!&ndash;                    <execution>&ndash;&gt;
+&lt;!&ndash;                        <id>add-openapi-sources</id>&ndash;&gt;
+&lt;!&ndash;                        <phase>generate-sources</phase>&ndash;&gt;
+&lt;!&ndash;                        <goals>&ndash;&gt;
+&lt;!&ndash;                            <goal>add-source</goal>&ndash;&gt;
+&lt;!&ndash;                        </goals>&ndash;&gt;
+&lt;!&ndash;                        <configuration>&ndash;&gt;
+&lt;!&ndash;                            <sources>&ndash;&gt;
+&lt;!&ndash;                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>&ndash;&gt;
+&lt;!&ndash;                            </sources>&ndash;&gt;
+&lt;!&ndash;                        </configuration>&ndash;&gt;
+&lt;!&ndash;                    </execution>&ndash;&gt;
+&lt;!&ndash;                </executions>&ndash;&gt;
+&lt;!&ndash;            </plugin>&ndash;&gt;&ndash;&gt;
 
         </plugins>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.yml</include>
-                    <include>**/*.yaml</include>
-                    <include>**/banner.txt</include>
-                    <include>**/darwinchannels.json</include>
-                </includes>
-            </resource>
-        </resources>
-
-    </build>-->
+    </build>
+-->
 
 </project>
