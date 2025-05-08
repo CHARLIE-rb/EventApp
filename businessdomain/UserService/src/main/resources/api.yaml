@@ -1,0 +1,51 @@
+openapi: 3.1.1
+info:
+  title: User Service API
+  version: 1.0.0
+servers:
+  - url: http://localhost:7080
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: List all users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: Get a single user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+components:
+  schemas:
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - name

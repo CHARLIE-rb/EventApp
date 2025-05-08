@@ -130,6 +130,58 @@
                 </configuration>
             </plugin>
 
+
+            <!-- 2. OPENAPI GENERATOR configurado en generate-sources ⮀ -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.13.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-api-interfaces</id>
+                        <phase>generate-sources</phase>            <!-- ⮀ -->
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+<!--                            <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>-->
+                            <inputSpec>src/main/resources/api.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useTags>true</useTags>
+                                <useJakartaEe>true</useJakartaEe>
+                            </configOptions>
+                            <apiPackage>com.eventapp.users.api</apiPackage>
+                            <modelPackage>com.eventapp.users.model</modelPackage>
+                            <output>${project.build.directory}/generated-sources/openapi</output>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 3. AÑADE la carpeta generada al classpath ⮀ -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>add-openapi-sources</id>
+                        <phase>generate-sources</phase>          <!-- ⮀ -->
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
+
     </build>
 </project>
