@@ -23,7 +23,7 @@
 
     <properties>
         <spring-cloud-dependencies.version>2024.0.1</spring-cloud-dependencies.version>
-<!--        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>-->
+        <!--        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>-->
         <!--        <org.lombo.version>1.18.30</org.lombo.version>-->
         <!--        <org.springdoc.version>2.3.0</org.springdoc.version>-->
         <org.springdoc.version>1.6.12</org.springdoc.version>
@@ -111,11 +111,11 @@
             <version>${jackson.databind.nullable.version}</version>
         </dependency>
         <!-- mapper beans -->
-<!--        <dependency>-->
-<!--            <groupId>org.mapstruct</groupId>-->
-<!--            <artifactId>mapstruct-jdk8</artifactId>-->
-<!--            <version>${org.mapstruct.version}</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.mapstruct</groupId>-->
+        <!--            <artifactId>mapstruct-jdk8</artifactId>-->
+        <!--            <version>${org.mapstruct.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
@@ -129,7 +129,7 @@
         </dependency>
 
 
-<!--        Dependencias de testing-->
+        <!--        Dependencias de testing-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -163,6 +163,104 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--                <version>${spring-boot.version}</version>-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <propertiesEncoding>ISO-8859-1</propertiesEncoding>
+                </configuration>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.13</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.21.0</version>
+                <configuration>
+                    <locales>es</locales>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${lombok-mapstruct-binding.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <release>17</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <!--<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
             <plugin>
@@ -172,7 +270,7 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.source}</target>
-                    <!-- generate mappers -->
+                    &lt;!&ndash; generate mappers &ndash;&gt;
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -189,7 +287,7 @@
             </plugin>
 
 
-<!--            OpenApi Generator Code-->
+&lt;!&ndash;            OpenApi Generator Code&ndash;&gt;
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -229,16 +327,16 @@
                             <modelPackage>com.romero.userservice.model</modelPackage>
                             <apiPackage>com.romero.userservice.web</apiPackage>
                             <modelNameSuffix>Dto</modelNameSuffix>
-<!--                            <generateApiDpcumentation>false</generateApiDpcumentation>-->
-<!--                            <GenerateModelDocumentation>false</GenerateModelDocumentation>-->
+&lt;!&ndash;                            <generateApiDpcumentation>false</generateApiDpcumentation>&ndash;&gt;
+&lt;!&ndash;                            <GenerateModelDocumentation>false</GenerateModelDocumentation>&ndash;&gt;
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
 
-            <!-- 2. OPENAPI GENERATOR configurado en generate-sources ⮀ -->
-            <!--<plugin>
+            &lt;!&ndash; 2. OPENAPI GENERATOR configurado en generate-sources ⮀ &ndash;&gt;
+            &lt;!&ndash;<plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>7.13.0</version>
@@ -285,7 +383,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>&ndash;&gt;
 
         </plugins>
         <resources>
@@ -302,6 +400,6 @@
             </resource>
         </resources>
 
-    </build>
+    </build>-->
 
 </project>
