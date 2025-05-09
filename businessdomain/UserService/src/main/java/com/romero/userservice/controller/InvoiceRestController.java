@@ -38,7 +38,7 @@ import java.util.Optional;
  */
 @Tag(name = "Billing API", description = "This APi serve all functionality for management Invoices")
 @RestController
-@RequestMapping("/billing")
+@RequestMapping("/billing/V1")
 public class InvoiceRestController {
 
     @Autowired

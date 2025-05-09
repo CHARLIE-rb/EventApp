@@ -1,15 +1,17 @@
 openapi: 3.1.1
 info:
   title: User Service API
+  description: Portal UserService
   version: 1.0.0
 servers:
-  - url: http://localhost:7080
+  - url: http://localhost:7080/billing/V1
 paths:
   /users:
     get:
       tags:
         - users
       summary: List all users
+      operationId: getUsers
       responses:
         '200':
           description: OK
@@ -19,6 +21,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /users/{id}:
     get:
       tags:
@@ -37,15 +45,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     User:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          format: int64
         name:
           type: string
       required:
         - id
         - name
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          format: int32
+        errors:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 999
+        code:
+          type: string
+          example: Error
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
