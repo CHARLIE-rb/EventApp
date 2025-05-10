@@ -1,0 +1,129 @@
+openapi: 3.1.1
+info:
+  title: Security Service API
+  version: 1.0.0
+servers:
+  - url: /
+
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: Registra un nuevo usuario
+      tags:
+        - AuthenticationController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+
+  /api/v1/auth/authenticate:
+    post:
+      summary: Obtiene JWT para un usuario válido
+      tags:
+        - AuthenticationController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationRequest'
+      responses:
+        '200':
+          description: Token JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+
+components:
+  schemas:
+
+    RegisterRequest:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        role:
+          $ref: '#/components/schemas/Role'
+      required:
+        - firstname
+        - lastname
+        - email
+        - password
+        - role
+
+    AuthenticationRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    AuthenticationResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+        username:
+          type: string
+
+    Role:
+      type: string
+      enum:
+        - USER
+        - ADMIN
+        - GESTOR
+        - RESPONSABLE_EQUIPO
+        - EMPLEADO
+        - CEO
+      x-java-type: com.romero.seguridad.user.Role
+
+    Permisos:
+      type: string
+      enum:
+        - ADMIN_READ
+        - ADMIN_CREATE
+        - ADMIN_UPDATE
+        - ADMIN_DELETE
+        - MANAGER_READ
+        - MANAGER_CREATE
+        - MANAGER_UPDATE
+        - MANAGER_DELETE
+        - GESTOR_READ
+        - GESTOR_CREATE
+        - GESTOR_UPDATE
+        - GESTOR_DELETE
+        - TEAM_LEAD_READ
+        - TEAM_LEAD_UPDATE
+        - EMPLOYEE_READ
+        - CEO_READ
+        - CEO_CREATE
+        - CEO_UPDATE
+        - CEO_DELETE
+      x-java-type: com.romero.seguridad.user.Permisos

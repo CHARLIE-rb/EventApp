@@ -78,6 +78,7 @@
     <modules>
         <module>businessdomain</module>
         <module>infraestructuradomain</module>
+        <module>SecurityService</module>
     </modules>
 
     <dependencyManagement>

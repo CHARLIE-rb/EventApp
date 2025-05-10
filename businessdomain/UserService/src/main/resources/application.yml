@@ -26,11 +26,15 @@ spring:
     swagger-ui:
       path: /swagger-ui.html
 
-  # ????? Seguridad HTTP básica (solo admin) ?????
+  # ????? Seguridad HTTP bï¿½sica (solo admin) ?????
   security:
-    user:
-      name: admin
-      password: qwerty
+    oauth2:
+      resourceserver:
+        jwt:
+          # o si usas secreto compartido:
+          secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+          # Si usas firma simÃ©trica
+#          jwk-set-uri: http://user-service:8080/.well-known/jwks.json
       # roles: ADMIN
 
   # ????? Desactivar Config Server opcional ?????
