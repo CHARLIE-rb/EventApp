@@ -1,5 +1,7 @@
 package com.romero.seguridad.auth;
 
+import com.romero.security.model.AuthenticationRequest;
+import com.romero.security.model.AuthenticationResponse;
 import com.romero.seguridad.config.JwtService;
 import com.romero.seguridad.token.Token;
 import com.romero.seguridad.token.TokenRepository;
@@ -13,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,13 +25,13 @@ import java.io.IOException;
 public class AuthenticationService {
     private final UserRepository repository;
     private final TokenRepository tokenRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        User user = userMapper.toUser(request, passwordEncoder);
+        User user = userMapper.toUser(request);
         User savedUser = repository.save(user);
         String jwtToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);

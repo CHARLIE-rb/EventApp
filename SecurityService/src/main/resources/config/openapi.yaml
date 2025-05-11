@@ -85,12 +85,9 @@ components:
     AuthenticationResponse:
       type: object
       properties:
-        token:
+        accessToken:
           type: string
-        expiresAt:
-          type: string
-          format: date-time
-        username:
+        refreshToken:
           type: string
 
     Role:

@@ -1,5 +1,7 @@
 package com.romero.seguridad.auth;
 
+import com.romero.security.model.AuthenticationRequest;
+import com.romero.security.model.AuthenticationResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
