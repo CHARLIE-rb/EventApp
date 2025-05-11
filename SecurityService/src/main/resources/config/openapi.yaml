@@ -43,7 +43,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthenticationResponse'
-
+  /api/v1/auth/refresh-token:
+    post:
+      summary: Refresca el token de acceso usando el refresh token
+      operationId: refreshToken
+      tags:
+        - AuthenticationController
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            El refresh token con el prefijo `Bearer `.  
+            Ejemplo: `Authorization: Bearer eyJhbGciOiJI…`
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Nuevo accessToken (y opcionalmente refreshToken)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
 components:
   schemas:
 

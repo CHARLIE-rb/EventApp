@@ -173,6 +173,8 @@
 								<descriminatorCaseSensitive>true</descriminatorCaseSensitive>
 								<generatedConstructorWithRequiredArgs>false</generatedConstructorWithRequiredArgs>
 
+								<useResponseEntity>true</useResponseEntity>
+
 								<!-- Le dices al generator que USE tus clases en vez de generar nuevas -->
 								<importMappings>
 									Role=com.romero.seguridad.user.Role,
