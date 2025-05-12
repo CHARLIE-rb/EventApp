@@ -1,4 +1,3 @@
-### Variables de entorno
 @baseUrl = http://localhost:8888
 
 ### 1) Registro de usuario
@@ -7,36 +6,40 @@ Content-Type: application/json
 
 {
   "firstname": "Carlos",
-  "lastname": "Romero",
-  "email": "carlos@mail.com",
-  "password": "secreto123",
-  "role": "EMPLEADO"
+  "lastname":  "Romero",
+  "email":     "carlos@mail.com",
+  "password":  "secreto123",
+  "role":      "EMPLEADO"
 }
 
 > {% client.global.set("accessToken", response.body.accessToken) %}
 > {% client.global.set("refreshToken", response.body.refreshToken) %}
+
 
 ### 2) Autenticación (login)
 POST {{baseUrl}}/api/v1/auth/authenticate
 Content-Type: application/json
 
 {
-  "email": "carlos@mail.com",
+  "email":    "carlos@mail.com",
   "password": "secreto123"
 }
 
 > {% client.global.set("accessToken", response.body.accessToken) %}
 > {% client.global.set("refreshToken", response.body.refreshToken) %}
 
+
 ### 3) Perfil del usuario (endpoint protegido)
 GET {{baseUrl}}/api/v1/users/me
 Authorization: Bearer {{accessToken}}
+
 
 ### 4) Refrescar access token
 POST {{baseUrl}}/api/v1/auth/refresh-token
 Authorization: Bearer {{refreshToken}}
 
-> {% client.global.set("accessToken", response.body.accessToken) %}
+#> {% client.global.set("accessToken",   response.body.accessToken) %}
+> {% client.global.set("refreshToken", response.body.refreshToken) %}
 
 ### 5) Logout / revocación de tokens
 POST {{baseUrl}}/api/v1/auth/logout
